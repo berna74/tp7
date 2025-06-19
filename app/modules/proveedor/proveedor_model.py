@@ -35,7 +35,7 @@ class ProveedorModel:
             return {'mensaje': 'No se pudo conectar a la base de datos'}
         with cnx.cursor(dictionary=True) as cursor:
             try:
-                cursor.execute("SELECT * FROM proveedores")
+                cursor.execute("SELECT * FROM PROVEEDORES")
                 rows = cursor.fetchall()
                 return rows if rows else False
             except Exception as exc:
@@ -43,24 +43,33 @@ class ProveedorModel:
             finally:
                 cnx.close()
 
-    def get_by_id(self):
+    @staticmethod
+    def get_by_id(id):
         cnx = ConectDB.get_connect()
-        with cnx.cursor(dictionary=True) as cursor:
-            try:
-                cursor.execute("SELECT * FROM proveedores WHERE id = %s", (self.id,))
+        if cnx is None:
+            return None
+        try:
+            with cnx.cursor(dictionary=True) as cursor:
+                cursor.execute("SELECT * FROM PROVEEDORES WHERE id = %s", (id,))
                 row = cursor.fetchone()
-                return row if row else False
-            except Exception as exc:
-                return {'mensaje': f"error al buscar proveedor {exc}"}
-            finally:
-                cnx.close()
+                if row:
+                    return ProveedorModel(
+                        id=row['id'],
+                        nombre=row['nombre'],
+                        telefono=row['telefono'],
+                        direccion=row['direccion'],
+                        email=row['email']
+                    )
+                return None
+        finally:
+            cnx.close()
                 
     def create(self):
         cnx = ConectDB.get_connect()
         with cnx.cursor() as cursor:
             try:
                 cursor.execute(
-                    "INSERT INTO proveedores (nombre, telefono, direccion, email) VALUES (%s, %s, %s, %s)",
+                    "INSERT INTO PROVEEDORES (nombre, telefono, direccion, email) VALUES (%s, %s, %s, %s)",
                     (self.nombre, self.telefono, self.direccion, self.email)
                 )
                 cnx.commit()
@@ -77,7 +86,7 @@ class ProveedorModel:
         with cnx.cursor() as cursor:
             try:
                 cursor.execute(
-                    "UPDATE proveedores SET nombre = %s, telefono = %s, direccion = $s, email = %s WHERE id = %s",
+                    "UPDATE PROVEEDORES SET nombre = %s, telefono = %s, direccion = $s, email = %s WHERE id = %s",
                     (self.nombre, self.telefono, self.email, self.direccion, self.id)
                 )
                 cnx.commit()
@@ -94,7 +103,7 @@ class ProveedorModel:
         cnx = ConectDB.get_connect()
         with cnx.cursor() as cursor:
             try:
-                cursor.execute("DELETE FROM proveedores WHERE id = %s", (id,))
+                cursor.execute("DELETE FROM PROVEEDORES WHERE id = %s", (id,))
                 cnx.commit()
                 return cursor.rowcount > 0
             except Exception as exc:

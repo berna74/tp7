@@ -1,22 +1,21 @@
 from ...database.conect_db import ConectDB
 
 class MarcaModel:
-    def __init__(self, id: int=0, descripcion: str=""):
+    def __init__(self, id: int=0, nombre: str=""):
         self.id = id
-        self.descripcion = descripcion
+        self.nombre = nombre
 
-    @staticmethod
-    def serializar(self) -> dict:
+    def serializar(self):
         return {
             'id': self.id,
-            'descripcion': self.descripcion
+            'nombre': self.nombre
         }
 
     @staticmethod
     def deserializar(data: dict):
         return MarcaModel(
             id=data['id'],
-            descripcion=data['descripcion'],
+            nombre=data['nombre'],
             )
         
     @staticmethod
@@ -27,7 +26,7 @@ class MarcaModel:
         with cnx.cursor(dictionary=True) as cursor:
             try:
                 # ejecuto la query
-                cursor.execute(f"SELECT * FROM marcas")
+                cursor.execute(f"SELECT * FROM MARCAS")
                 # guardo en una variable el resultado
                 rows = cursor.fetchall()
                 # lista de diccionarios
@@ -42,29 +41,27 @@ class MarcaModel:
                 return {'mensaje': f" error al listar marcas {exc}"}
             finally:
                 cnx.close()
-        
-    def get_by_id(self):
+    @staticmethod    
+    def get_by_id(id):
         cnx = ConectDB.get_connect()
-        with cnx.cursor(dictionary=True) as cursor:
-            try:
-                # ejecuto la query
-                cursor.execute("SELECT * FROM marcas where id = %s", (self.id,))
-                # guardo en una variable el resultado
+        if cnx is None:
+            return None
+        try:
+            with cnx.cursor(dictionary=True) as cursor:
+                cursor.execute("SELECT * FROM MARCAS WHERE id = %s", (id,))
                 row = cursor.fetchone()
                 if row:
-                    return row
-                return False
-            except Exception as exc:
-                return {'mensaje':f" error al buscar una marca {exc}"}
-            finally:
-                cnx.close()
+                    return MarcaModel(id=row['id'], nombre=row['nombre'])
+                return None
+        finally:
+            cnx.close()
                 
     def create(self):
         cnx = ConectDB.get_connect()
         with cnx.cursor() as cursor:
             try:
                 # ejecuto la query
-                cursor.execute("INSERT INTO marcas (descripcion) VALUES (%s)", 
+                cursor.execute("INSERT INTO MARCAS (descripcion) VALUES (%s)", 
                                (self.descripcion))
                 result = cursor.rowcount
                 cnx.commit()
@@ -83,7 +80,7 @@ class MarcaModel:
         with cnx.cursor(dictionary=True) as cursor:
             try:
                 # ejecuto la query
-                cursor.execute("UPDATE articulos SET descripcion = %s", 
+                cursor.execute("UPDATE ARTICULOS SET descripcion = %s", 
                                (self.descripcion))
                 result = cursor.rowcount
                 cnx.commit()
@@ -104,7 +101,7 @@ class MarcaModel:
         with cnx.cursor(dictionary=True) as cursor:
             try:
                 # ejecuto la query
-                cursor.execute("DELETE FROM marcas where id = %s ", 
+                cursor.execute("DELETE FROM MARCAS where id = %s ", 
                                (id,))
                 result = cursor.rowcount
                 cnx.commit()

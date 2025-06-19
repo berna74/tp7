@@ -1,21 +1,21 @@
 from app.database.conect_db import ConectDB
 
 class CategoriaModel:
-    def __init__(self, id: int = 0, descripcion: str = ""):
+    def __init__(self, id: int = 0, nombre: str = ""):
         self.id = id
-        self.descripcion = descripcion
+        self.nombre = nombre
 
     def serializar(self) -> dict:
         return {
             "id": self.id,
-            "descripcion": self.descripcion
+            "nombre": self.nombre
         }
 
     @staticmethod
     def deserializar(data: dict):
         return CategoriaModel(
             id=data.get("id", 0),
-            descripcion=data.get("descripcion", "")
+            nombre=data.get("nombre", "")
         )
 
     @staticmethod
@@ -25,7 +25,7 @@ class CategoriaModel:
             return {'mensaje': 'No se pudo conectar a la base de datos'}
         with cnx.cursor(dictionary=True) as cursor:
             try:
-                cursor.execute("SELECT * FROM categorias")
+                cursor.execute("SELECT * FROM CATEGORIAS")
                 rows = cursor.fetchall()
                 categorias = []
                 if rows:
@@ -37,26 +37,26 @@ class CategoriaModel:
                 return {'mensaje': f"error al listar categorías {exc}"}
             finally:
                 cnx.close()
-
-    def get_by_id(self):
+    @staticmethod
+    def get_by_id(id):
         cnx = ConectDB.get_connect()
-        with cnx.cursor(dictionary=True) as cursor:
-            try:
-                cursor.execute("SELECT * FROM categorias WHERE id = %s", (self.id,))
+        if cnx is None:
+            return None
+        try:
+            with cnx.cursor(dictionary=True) as cursor:
+                cursor.execute("SELECT * FROM CATEGORIAS WHERE id = %s", (id,))
                 row = cursor.fetchone()
                 if row:
-                    return row
-                return False
-            except Exception as exc:
-                return {'mensaje': f"error al buscar una categoría {exc}"}
-            finally:
-                cnx.close()
+                    return CategoriaModel(id=row['id'], nombre=row['nombre'])
+                return None
+        finally:
+            cnx.close()
 
     def create(self):
         cnx = ConectDB.get_connect()
         with cnx.cursor() as cursor:
             try:
-                cursor.execute("INSERT INTO categorias (descripcion) VALUES (%s)", (self.descripcion,))
+                cursor.execute("INSERT INTO CATEGORIAS (nombre) VALUES (%s)", (self.nombre,))
                 result = cursor.rowcount
                 cnx.commit()
                 if result > 0:
@@ -72,7 +72,7 @@ class CategoriaModel:
         cnx = ConectDB.get_connect()
         with cnx.cursor(dictionary=True) as cursor:
             try:
-                cursor.execute("UPDATE categorias SET descripcion = %s WHERE id = %s", (self.descripcion, self.id))
+                cursor.execute("UPDATE CATEGORIAS SET descripcion = %s WHERE id = %s", (self.descripcion, self.id))
                 result = cursor.rowcount
                 cnx.commit()
                 if result > 0:
@@ -89,7 +89,7 @@ class CategoriaModel:
         cnx = ConectDB.get_connect()
         with cnx.cursor(dictionary=True) as cursor:
             try:
-                cursor.execute("DELETE FROM categorias WHERE id = %s", (id,))
+                cursor.execute("DELETE FROM CATEGORIAS WHERE id = %s", (id,))
                 result = cursor.rowcount
                 cnx.commit()
                 if result > 0:

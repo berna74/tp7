@@ -45,17 +45,12 @@ class ArticuloModel:
         try:
             with cnx.cursor(dictionary=True) as cursor:
                 # Obtengo todos los artículos
-<<<<<<< HEAD
                 cursor.execute("SELECT * FROM ARTICULOS")
-=======
-                cursor.execute("SELECT * FROM articulos")
->>>>>>> c0468d362927423cd24aac28d104dade1a7c88b1
                 rows = cursor.fetchall()
                 articulos = []
                 if rows:
                     for row in rows:
                         # Obtengo la marca asociada
-<<<<<<< HEAD
                         marca_row = MarcaModel.get_by_id(row['marca_id'])
                         
                         # Obtengo el proveedor asociado
@@ -65,17 +60,6 @@ class ArticuloModel:
                         cursor.execute("SELECT categoria_id FROM ARTICULOS_CATEGORIAS WHERE articulo_id = %s", (row['id'],))
                         categoria_ids = cursor.fetchall()
                         categorias = [CategoriaModel.get_by_id(c['categoria_id']) for c in categoria_ids]
-=======
-                        marca_row = MarcaModel(id=row['marca_id']).get_by_id(row['marca_id'])
-                        
-                        # Obtengo el proveedor asociado
-                        proveedor_row = ProveedorModel(id=row['proveedor_id']).get_by_id(row['proveedor_id'])
-                        
-                        # Obtengo las categorías asociadas
-                        cursor.execute("SELECT categoria_id FROM articulos_categorias WHERE articulo_id = %s", (row['id'],))
-                        categoria_ids = cursor.fetchall()
-                        categorias = [CategoriaModel(id=c['categoria_id']).get_by_id(c['categoria_id']) for c in categoria_ids]
->>>>>>> c0468d362927423cd24aac28d104dade1a7c88b1
                         
                         # Construyo el artículo con los datos obtenidos
                         articulo = ArticuloModel(
@@ -95,12 +79,8 @@ class ArticuloModel:
         finally:
             cnx.close()
 
-<<<<<<< HEAD
     @staticmethod
     def get_by_id(id):
-=======
-    def get_by_id(self):
->>>>>>> c0468d362927423cd24aac28d104dade1a7c88b1
         cnx = ConectDB.get_connect()
         if cnx is None:
             return {'mensaje': 'No se pudo conectar a la base de datos'}
@@ -110,7 +90,6 @@ class ArticuloModel:
                 cursor.execute("SELECT * FROM articulos WHERE id = %s", (self.id,))
                 row = cursor.fetchone()
                 if row:
-<<<<<<< HEAD
                        marca_row = MarcaModel.get_by_id(row['marca_id'])
                        proveedor_row = ProveedorModel.get_by_id(row['proveedor_id'])
                        cursor.execute("SELECT categoria_id FROM articulos_categorias WHERE articulo_id = %s", (row['id'],))
@@ -126,30 +105,6 @@ class ArticuloModel:
                            categorias=categorias
                        )
                        return articulo.serializar()
-=======
-                    # Obtengo la marca asociada
-                    marca_row = MarcaModel(id=row['marca_id']).get_by_id(row['marca_id'])
-                    
-                    # Obtengo el proveedor asociado
-                    proveedor_row = ProveedorModel(id=row['proveedor_id']).get_by_id(row['proveedor_id'])
-                    
-                    # Obtengo las categorías asociadas
-                    cursor.execute("SELECT categoria_id FROM articulos_categorias WHERE articulo_id = %s", (row['id'],))
-                    categoria_ids = cursor.fetchall()
-                    categorias = [CategoriaModel(id=c['categoria_id']).get_by_id(c['categoria_id']) for c in categoria_ids]
-                    
-                    # Construyo el artículo con los datos obtenidos
-                    articulo = ArticuloModel(
-                        id=row['id'],
-                        descripcion=row['descripcion'],
-                        precio=row['precio'],
-                        stock=row['stock'],
-                        marca=marca_row,
-                        proveedor=proveedor_row,
-                        categorias=categorias
-                    )
-                    return articulo.serializar()
->>>>>>> c0468d362927423cd24aac28d104dade1a7c88b1
                 return {}
         except Exception as exc:
             return {'mensaje': f"Error al buscar un artículo: {exc}"}

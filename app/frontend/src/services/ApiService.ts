@@ -12,7 +12,7 @@ class ApiService {
       }
   }
 
-static async getOne(url: string, id: number) {
+  static async getOne(url: string, id: number) {
   try {
       const response = await axios.get(`${url}/${id}`);
       if (response) {
@@ -24,7 +24,7 @@ static async getOne(url: string, id: number) {
 }
 
 
-static async create(url:string, data:object) {
+  static async create(url:string, data:object) {
   try {
     const response = await axios.post(url, data)
     if (response) {
@@ -36,7 +36,7 @@ static async create(url:string, data:object) {
 }
 
 
-static async update(url: string, id: number, data: object) {
+  static async update(url: string, id: number, data: object) {
   try {
     const response = await axios.put(url + id, data)
     if (response) {
@@ -47,7 +47,7 @@ static async update(url: string, id: number, data: object) {
   }
 }
 
-static async destroy(url: string, id: number) {
+  static async destroy(url: string, id: number) {
   try {
     const response = await axios.delete(`${url}/${id}`);
     if (response) {
@@ -56,6 +56,7 @@ static async destroy(url: string, id: number) {
   } catch (error) {
     return error;
   }
+}
 
 }
 export default ApiService;

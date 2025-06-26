@@ -1,5 +1,5 @@
 <template>
- 
+  
 </template>
 
 <script setup>
@@ -22,7 +22,7 @@ form {
   margin-bottom: 1.5rem;
   align-items: center;
 }
-input, select, button {
+input, button {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   border: 1px solid #ccc;

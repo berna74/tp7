@@ -1,10 +1,20 @@
 <template>
- <h1>Marcas</h1>
- <RouterLink :to="{ name: 'marcas_create'}">Crear nueva marca</RouterLink>">
-  <RouterView />
-</template>
+ <h4>Marcascaca123</h4>
+ <RouterView />
+ 
+ </template>
 
 <script setup>
+
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const route = useRouter();
+
+onMounted(() => {
+console.log('MarcasView montado'); 
+route.push({ name: 'marcas_list' });
+});
 
 </script>
 

@@ -2,6 +2,7 @@
   <nav>
     <RouterLink :to="{ name: 'home' }">HOME</RouterLink>
     <RouterLink :to="{ name: 'marcas_list' }">MARCAS</RouterLink>
+    <RouterLink :to="{ name: 'proveedores_list' }">PROVEEDORES</RouterLink>
   </nav>
   <main>
     <RouterView />

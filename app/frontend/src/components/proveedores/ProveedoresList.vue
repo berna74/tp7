@@ -1,9 +1,9 @@
 <template>
-<h1>Marcas</h1>
+<h1>Proveedores</h1>
 </template>
 
 
-<script setup>  
+<script setup lang="ts">  
 
 </script>
 

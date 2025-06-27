@@ -2,7 +2,7 @@ const marcas_routes = [
     {
         path: '/marcas', 
         name: 'marcas_list',
-        component: ()=>import('../views/MarcasView.vue'),
+        component: ()=>import('../components/marcas/MarcasList.vue'),
     },
     {
         path: '/marcas/:id/show',

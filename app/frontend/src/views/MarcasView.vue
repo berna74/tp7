@@ -1,21 +1,22 @@
 <template>
- <h4>Marcascaca123</h4>
- <RouterView />
- 
- </template>
+  <div class="container">
+    <h4>Marcas</h4>
+    
+    
+    <RouterView />
+  </div>
+</template>
 
-<script setup>
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 
-import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-
-const route = useRouter();
+const route = useRouter()
 
 onMounted(() => {
-console.log('MarcasView montado'); 
-route.push({ name: 'marcas_list' });
-});
-
+  //console.log('componente montado')
+  route.push({ name: 'marcas_list' })
+})
 </script>
 
 <style scoped>

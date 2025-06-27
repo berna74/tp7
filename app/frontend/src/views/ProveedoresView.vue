@@ -1,9 +1,21 @@
 <template>
-  
+    <div class="container">
+    <h4>Proveedores</h4>
+    <!-- renderizado del modulo Proveedores, lista, create, update, mostrar una en particular-->
+    <RouterView />
+  </div>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 
+const route = useRouter()
+
+onMounted(() => {
+  //console.log('componente montado')
+  route.push({ name: 'proveedores_list' })
+})
 </script>
 
 <style scoped>

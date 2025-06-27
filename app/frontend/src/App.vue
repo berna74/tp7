@@ -1,8 +1,10 @@
 <template>
   <nav>
-    <RouterLink :to="{ name: 'home' }">HOME</RouterLink>
-    <RouterLink :to="{ name: 'marcas_list' }">MARCAS</RouterLink>
-    <RouterLink :to="{ name: 'proveedores_list' }">PROVEEDORES</RouterLink>
+    <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+    <RouterLink :to="{ name: 'articulos_list' }">Artículos</RouterLink>
+    <RouterLink :to="{ name: 'marcas_list' }">Marcas</RouterLink>
+    <RouterLink :to="{ name: 'proveedores_list' }">Proveedores</RouterLink>
+    <RouterLink :to="{ name: 'categorias_list' }">Categorías</RouterLink>
   </nav>
   <main>
     <RouterView />

@@ -1,9 +1,21 @@
 <template>
- 
-</template>
+<div class="container">
+    <h4>Artículos</h4>
+    <!-- renderizado del modulo artículos, lista, create, update, mostrar una en particular-->
+    <RouterView />
+  </div>
+  </template>
 
-<script setup>
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 
+const route = useRouter()
+
+onMounted(() => {
+  //console.log('componente montado')
+  route.push({ name: 'articulos_list' })
+})
 </script>
 
 <style scoped>

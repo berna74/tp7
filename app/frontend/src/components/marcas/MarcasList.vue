@@ -40,14 +40,13 @@ onMounted(async() => {
 async function eliminar (id: number) {
   if (confirm('¿Estás seguro de eliminar la marca ' + id + '?')) {
     if (confirm('Esta acción no se puede deshacer. ¿Deseas continuar?')) {
-      // Aquí podrías mostrar un mensaje de carga o algo similar
+      
       console.log('Eliminando marca con ID:', id);
     } else {
       console.log('Eliminación cancelada por el usuario.');
       return;
     }
-    // Llamar a la función destroy del store para eliminar la marca
-    // y luego actualizar la lista de marcas
+    
        await destroy(id);
        await getAll();
     }

@@ -18,17 +18,17 @@ import { toRefs } from 'vue';
 import useMarcaStore from '@/stores/marcas';
 
 const { marca } = toRefs(useMarcaStore());
-const { create } = useMarcaStore(); // Corregido: eliminé el carácter inesperado
+const { create } = useMarcaStore(); 
 
-const crear = async () => { // Corregido: moví "async" al lugar correcto
+const crear = async () => { 
   if (!marca.value.nombre) {
     alert('Por favor, ingrese un nombre para la marca.');
     return;
   }
 
   try {
-    const response = await create(marca.value); // Usar "create" correctamente
-    marca.value.nombre = ''; // Limpiar el campo después de crear
+    const response = await create(marca.value); 
+    marca.value.nombre = ''; 
     alert('Marca creada exitosamente.');
   } catch (error) {
     console.error('Error al crear la marca:', error);

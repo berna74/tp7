@@ -80,7 +80,7 @@ class ArticuloModel:
             cnx.close()
 
     @staticmethod
-    def get_by_id(id):
+    def get_by_id(articulo_id: int):
         cnx = ConectDB.get_connect()
         if cnx is None:
             return {'mensaje': 'No se pudo conectar a la base de datos'}

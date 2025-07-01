@@ -10,11 +10,11 @@
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 
-const route = useRouter()
+const router = useRouter()
 
 onMounted(() => {
   //console.log('componente montado')
-  route.push({ name: 'proveedores_list' })
+  router.push({ name: 'proveedores_list' })
 })
 </script>
 

@@ -2,7 +2,7 @@ const proveedores_routes = [
     {
         path: '/proveedores', 
         name: 'proveedores_list',
-        component: ()=>import('../views/ProveedoresView.vue')
+        component: ()=>import('../components/proveedores/ProveedoresList.vue')
     },
     {
         path: '/proveedores/:id/show',

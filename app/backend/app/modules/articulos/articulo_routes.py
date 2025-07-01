@@ -7,11 +7,12 @@ articulos_bp=Blueprint("articulos", __name__)
 def get_all():
     try:
         articulos = ArticuloController.get_all()
-        if articulos:
+        # El controlador devuelve una lista en caso de éxito (incluso vacía) o un diccionario en caso de error.
+        if isinstance(articulos, list):
             return jsonify(articulos), 200
         else:
-            return jsonify({'mensaje': 'no se encontraron artículos'}),404
-        
+            # Si no es una lista, es un diccionario de error del modelo.
+            return jsonify(articulos), 500
     except Exception as exc:
          return jsonify({'mensaje': f" error : {str(exc)}"}), 500
 @articulos_bp.route("/articulos/<int:id>")
@@ -30,13 +31,9 @@ def crear():
     try:
         data = request.get_json()
         if data is None:
-            return  jsonify({'mensaje': "no se recibieron datos"})
-        result = ArticuloController.crear(data)
-        if result:
-            return jsonify({'mensaje':'artículo creado correctamente'}), 201
-        else:
-            return jsonify({'mensaje': 'error al crear un artículo'}),500
-        
+            return  jsonify({'mensaje': "No se recibieron datos"}), 400
+        response, status_code = ArticuloController.crear(data)
+        return jsonify(response), status_code
     except Exception as exc:
          return jsonify({'mensaje': f" error : {str(exc)}"}), 500
     
@@ -44,22 +41,17 @@ def crear():
 def modificar(id):
     try:
         data = request.get_json()
-        data['id'] = id
-        result = ArticuloController.modificar(data)
-        if result:
-            return jsonify({'mensaje':'artículo modificado correctamente'}), 200
-        else:
-            return jsonify({'mensaje': 'error al modificar un artículo'}),500
-        
+        if data is None:
+            return jsonify({'mensaje': "No se recibieron datos"}), 400
+        response, status_code = ArticuloController.modificar(id, data)
+        return jsonify(response), status_code
     except Exception as exc:
          return jsonify({'mensaje': f" error : {str(exc)}"}), 500
 
-@articulos_bp.route("/articulos/id/<int:id>", methods=["DELETE"])
+@articulos_bp.route("/articulos/<int:id>", methods=["DELETE"])
 def eliminar(id):
     try:
-        result = ArticuloController.eliminar(id)
-        if result:
-            return jsonify({'mensaje':"artículo eliminado con éxito"})
-        return jsonify({'mensaje':"error al eliminar un artículo"})
+        response, status_code = ArticuloController.eliminar(id)
+        return jsonify(response), status_code
     except Exception as exc:
-        return jsonify({'mensaje':f"error str{exc}"})
+        return jsonify({'mensaje': f"error: {str(exc)}"}), 500

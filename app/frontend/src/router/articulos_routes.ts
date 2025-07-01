@@ -2,7 +2,7 @@ const articulos_routes = [
     {
         path: '/articulos', 
         name: 'articulos_list',
-        component: ()=>import('../views/ArticulosView.vue')
+        component: ()=>import('../components/articulos/ArticulosList.vue')
     },
     {
         path: '/articulos/:id/show',

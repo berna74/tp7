@@ -7,16 +7,16 @@ class CategoriaController:
 
     @staticmethod
     def get_one(id):
-        return CategoriaModel(id=id).get_by_id()
+        return CategoriaModel.get_by_id(id)
 
     @staticmethod
     def crear(data):
-        categoria = CategoriaModel(descripcion=data['descripcion'])
+        categoria = CategoriaModel(nombre=data['nombre'])
         return categoria.create()
 
     @staticmethod
     def modificar(data):
-        categoria = CategoriaModel(id=data['id'], descripcion=data['descripcion'])
+        categoria = CategoriaModel(id=data['id'], nombre=data['nombre'])
         return categoria.update()
 
     @staticmethod

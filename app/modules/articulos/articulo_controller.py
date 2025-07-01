@@ -9,7 +9,7 @@ class ArticuloController:
     
      @staticmethod
      def get_one(id):
-        articulo = ArticuloModel(id=id).get_by_id()
+        articulo = ArticuloModel.get_by_id(id)
         return articulo
      @staticmethod
      def crear(data:dict):

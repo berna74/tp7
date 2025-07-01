@@ -13,12 +13,16 @@ const useArticuloStore = defineStore('articulos',  () => {
     descripcion: '',
     precio: 0,
     stock: 0,
-    marca_id: 0,
-    proveedor_id: 0,
-    categoria: ''
+    marca: {
+      id: 0,
+      nombre: ''
+    },
+    proveedor: {
+      id: 0,
+      nombre: ''
+    },
+    categorias: []
   });
-
-
    async function getAll() {
     const data = await ApiService.getAll(url);
     if(data) {
@@ -30,7 +34,7 @@ const useArticuloStore = defineStore('articulos',  () => {
   async function getOne(id: number) {
     const data = await ApiService.getOne(url, id);
     if(data) {
-      articulos.value = data
+      articulo.value = data
          }
         }
 
@@ -55,6 +59,6 @@ const useArticuloStore = defineStore('articulos',  () => {
     }
   }
   return {articulos, articulo, getAll, getOne, create, update, destroy};
-})
+});
 
 export default useArticuloStore

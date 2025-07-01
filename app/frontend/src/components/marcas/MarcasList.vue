@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-  <h2>Lista de Marcas</h2>
+  <h2>Marcas</h2>
   <router-link :to="{name: 'marcas_create'}"><button>Crear Marca</button></router-link>
 <table class="table table-striped mt-3">
     <thead>
@@ -40,14 +40,13 @@ onMounted(async() => {
 async function eliminar (id: number) {
   if (confirm('¿Estás seguro de eliminar la marca ' + id + '?')) {
     if (confirm('Esta acción no se puede deshacer. ¿Deseas continuar?')) {
-      // Aquí podrías mostrar un mensaje de carga o algo similar
+      
       console.log('Eliminando marca con ID:', id);
     } else {
       console.log('Eliminación cancelada por el usuario.');
       return;
     }
-    // Llamar a la función destroy del store para eliminar la marca
-    // y luego actualizar la lista de marcas
+    
        await destroy(id);
        await getAll();
     }

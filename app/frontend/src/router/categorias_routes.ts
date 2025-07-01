@@ -2,7 +2,11 @@ const categorias_routes = [
     {
         path: '/categorias', 
         name: 'categorias_list',
+<<<<<<< HEAD
         component: ()=>import('../components/categorias/CategoriasList.vue')
+=======
+        component: ()=>import('../views/CategoriasView.vue')
+>>>>>>> 44655ba784151407743993c5d33dcd7f4d2e6ccb
     },
     {
         path: '/categorias/:id/show',

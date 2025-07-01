@@ -23,12 +23,16 @@
           <td>{{ articulo.stock }}</td>
           <td>{{ articulo.marca.nombre }}</td>
           <td>{{ articulo.proveedor.nombre }}</td>
+<<<<<<< HEAD
           <td>
             <ul>
               <li v-for="categoria in articulo.categorias" :key="categoria.id">{{ categoria.nombre }}</li>
             </ul>
           </td>   
           
+=======
+                   
+>>>>>>> 44655ba784151407743993c5d33dcd7f4d2e6ccb
           <td>
            <router-link :to="{name: 'articulos_show', params: {id: articulo.id }}"><button>Mostrar</button></router-link>
            <router-link :to="{name: 'articulos_edit', params: {id: articulo.id }}"><button>Editar</button></router-link>

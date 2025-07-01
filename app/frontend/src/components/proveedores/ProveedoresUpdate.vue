@@ -15,7 +15,11 @@
         </div>
       </form>
       <div class="botonera">
+<<<<<<< HEAD
         <RouterLink :to="{ name: 'proveedores_list' }"><button>Volver</button> </RouterLink>
+=======
+        <RouterLink :to="{ name: 'prroveedores_list' }"><button>Volver</button> </RouterLink>
+>>>>>>> 44655ba784151407743993c5d33dcd7f4d2e6ccb
         <button>Modificar</button>
       </div>
     </div>

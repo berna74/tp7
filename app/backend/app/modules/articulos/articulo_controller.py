@@ -1,7 +1,10 @@
 from .articulo_model import ArticuloModel
 from app.modules.marca.marca_model import MarcaModel
+<<<<<<< HEAD
 from app.modules.proveedor.proveedor_model import ProveedorModel
 from app.modules.categoria.categoria_model import CategoriaModel
+=======
+>>>>>>> 44655ba784151407743993c5d33dcd7f4d2e6ccb
 
 class ArticuloController:
      @staticmethod
@@ -11,6 +14,7 @@ class ArticuloController:
     
      @staticmethod
      def get_one(id):
+<<<<<<< HEAD
         # CORRECCIÓN: Se debe llamar al método estático directamente, no desde una instancia.
         articulo = ArticuloModel.get_by_id(id)
         return articulo
@@ -87,3 +91,28 @@ class ArticuloController:
         if ArticuloModel.delete(id):
             return {'mensaje':"artículo eliminado con éxito"}, 200
         return {'mensaje':"error al eliminar un artículo"}, 500
+=======
+        articulo = ArticuloModel(id=id).get_by_id()
+        return articulo
+     @staticmethod
+     def crear(data:dict):
+        marca_row = MarcaModel.get_by_id(data['marca_id'])
+        marca = MarcaModel.deserializar(marca_row)
+        articulo = ArticuloModel( descripcion=data['descripcion'], precio=data['precio'], stock=data['stock'], marca=marca)
+        result= articulo.create()
+        return result
+        
+     @staticmethod
+     def modificar(data:dict):
+         marca_row = MarcaModel.get_by_id(data['marca_id'])
+         marca = MarcaModel.deserializar(marca_row)
+         data['marca'] = marca         
+         articulo = ArticuloModel.deserializar(data)
+         result = articulo.update()
+         return result
+        
+     @staticmethod    
+     def eliminar(id):
+        result = ArticuloModel.delete(id)
+        return result
+>>>>>>> 44655ba784151407743993c5d33dcd7f4d2e6ccb

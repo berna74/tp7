@@ -4,7 +4,11 @@ from mysql.connector import Error, errorcode
 import os
 from dotenv import load_dotenv
 
+<<<<<<< HEAD
 load_dotenv(dotenv_path="/home/martin/TP6_PWD/pwd2025-tp-6-backend-berna74/app/.env")
+=======
+load_dotenv(dotenv_path="/home/martin/PWD/tp7/app/backend/.env")
+>>>>>>> 44655ba784151407743993c5d33dcd7f4d2e6ccb
 DB_NAME = os.getenv("DB_NAME")
 
 DB_CONFIG = {

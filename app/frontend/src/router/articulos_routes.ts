@@ -2,7 +2,11 @@ const articulos_routes = [
     {
         path: '/articulos', 
         name: 'articulos_list',
+<<<<<<< HEAD
         component: ()=>import('../components/articulos/ArticulosList.vue')
+=======
+        component: ()=>import('../views/ArticulosView.vue')
+>>>>>>> 44655ba784151407743993c5d33dcd7f4d2e6ccb
     },
     {
         path: '/articulos/:id/show',

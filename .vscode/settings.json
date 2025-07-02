@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "postman.settings.dotenv-detection-notification-visibility": false,
     "[python]": {
       "editor.defaultFormatter": "ms-python.autopep8"
@@ -6,3 +7,7 @@
     "vue-vine.hideDataTrackWarning": true
   }
   
+=======
+    "vue-vine.hideDataTrackWarning": true
+}
+>>>>>>> c76f3d4550e3530a4333f8f620d18112020e3320
